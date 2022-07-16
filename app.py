@@ -21,9 +21,7 @@ def detect():
         return
     video = request.files['video']
     video.save(os.path.join(uploads_dir, secure_filename(video.filename)))
-    print(video)
-    subprocess.run("ls")
-    subprocess.run(['python3', 'detect.py', '--source', os.path.join(uploads_dir, secure_filename(video.filename))])
+    subprocess.run(['python3', 'detect.py', '--exist-ok', '--source', os.path.join(uploads_dir, secure_filename(video.filename))])
 
     # return os.path.join(uploads_dir, secure_filename(video.filename))
     obj = secure_filename(video.filename)
@@ -32,10 +30,10 @@ def detect():
 @app.route('/return-files', methods=['GET'])
 def return_file():
     obj = request.args.get('obj')
-    loc = os.path.join("runs/detect", obj)
+    loc = os.path.join("runs/detect/exp", obj)
     print(loc)
     try:
-        return send_file(os.path.join("runs/detect", obj), attachment_filename=obj)
+        return send_file(os.path.join("runs/detect/exp", obj), attachment_filename=obj)
         # return send_from_directory(loc, obj)
     except Exception as e:
         return str(e)

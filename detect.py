@@ -154,6 +154,7 @@ def run(
                 for c in det[:, -1].unique():
                     n = (det[:, -1] == c).sum()  # detections per class
                     s += f"{n} {names[int(c)]}{'s' * (n > 1)}, "  # add to string
+                    cv2.putText(im0, "Number of people: " + str(n.item()), (20, 50), 0, 1, (100, 200, 0), 2) # extra added
 
                 # Write results
                 for *xyxy, conf, cls in reversed(det):

@@ -21,7 +21,7 @@ def detect():
         return
     video = request.files['video']
     video.save(os.path.join(uploads_dir, secure_filename(video.filename)))
-    subprocess.run(['python3', 'detect.py', '--exist-ok', '--source', os.path.join(uploads_dir, secure_filename(video.filename))])
+    subprocess.run(['python3', 'detect.py', '--exist-ok', '--line-thickness=1', '--hide-labels', '--source', os.path.join(uploads_dir, secure_filename(video.filename))])
 
     # return os.path.join(uploads_dir, secure_filename(video.filename))
     obj = secure_filename(video.filename)

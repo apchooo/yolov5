@@ -1,3 +1,13 @@
+function addSourceToVideo(element, src, type) {
+  var source = document.createElement('source');
+
+  source.src = src;
+  source.type = type;
+
+  element.appendChild(source);
+}
+
+
 window.onload = () => {
   $("#sendbutton").click(() => {
     imagebox = $("#imagebox");
@@ -23,6 +33,13 @@ window.onload = () => {
           // image = bytestring.split("'")[1];
           $("#link").css("visibility", "visible");
           $("#download").attr("href", "return-files?obj=" + data);
+
+          var video = document.createElement('video');
+          video.controls = true
+          headerElement = document.getElementById('header');
+          headerElement.appendChild(video);
+          addSourceToVideo(video, `/static/${data}`, 'video/mp4');
+
           console.log(data);
         },
       });

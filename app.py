@@ -22,6 +22,9 @@ def detect():
     video = request.files['video']
     video.save(os.path.join(uploads_dir, secure_filename(video.filename)))
     subprocess.run(['python3', 'detect.py', '--exist-ok', '--line-thickness=1', '--hide-labels', '--source', os.path.join(uploads_dir, secure_filename(video.filename))])
+    detected_filename = f"runs/detect/exp/{secure_filename(video.filename)}"
+    converted_filename = f"static/{secure_filename(video.filename)}"
+    subprocess.run(['ffmpeg', '-i', detected_filename, converted_filename ])
 
     # return os.path.join(uploads_dir, secure_filename(video.filename))
     obj = secure_filename(video.filename)

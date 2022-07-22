@@ -27,20 +27,20 @@ window.onload = () => {
           console.log("upload error", data);
           console.log(data.getAllResponseHeaders());
         },
-        success: function (data) {
-          console.log(data);
+        success: function (filepath_on_server) {
+          console.log(filepath_on_server);
           // bytestring = data["status"];
           // image = bytestring.split("'")[1];
           $("#link").css("visibility", "visible");
-          $("#download").attr("href", "return-files?obj=" + data);
+          $("#download").attr("href", filepath_on_server);
 
-          var video = document.createElement('video');
-          video.controls = true
+          var videoElement = document.createElement('video');
+          videoElement.controls = true
           headerElement = document.getElementById('header');
-          headerElement.appendChild(video);
-          addSourceToVideo(video, `/static/${data}`, 'video/mp4');
+          headerElement.appendChild(videoElement);
+          addSourceToVideo(videoElement, filepath_on_server, 'video/mp4');
 
-          console.log(data);
+          console.log(filepath_on_server);
         },
       });
     }
